@@ -26,3 +26,8 @@ Para realizar una instancia de Cymon se debe ejecutar
 ```python main_example.py```
 
 Para una información más detallada de cómo usar Cymon ver el [Manual de uso](https://github.com/OGmenas/gui-pdi/wiki/Manual-de-Usuario)
+
+## Ejemplo de Cymon
+
+![Original](https://github.com/OGmenas/gui-pdi/blob/master/media-docs/original.png "Original")
+![CyberPunk](https://github.com/OGmenas/gui-pdi/blob/master/media-docs/cyberpunk.png "CyberPunk")
