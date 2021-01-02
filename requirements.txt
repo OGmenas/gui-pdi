@@ -1,7 +1,6 @@
 pillow
 opencv_python
-torchvision
-torch
 numpy
 tqdm
 matplotlib
+git+https://github.com/sedthh/pyxelate.git

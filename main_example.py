@@ -4,13 +4,15 @@
 from pathlib import Path
 from sys import path
 from tkinter import *
+from pyxelate import Pyxelate
 import tkinter as tk                # python 3
 from tkinter import font as tkfont  # python 3
-from tkinter import filedialog, ttk
+from tkinter import filedialog, ttk, messagebox
 from PIL import Image, ImageTk
 import os
 import cv2
 import shutil
+import numpy as np
 
 class SampleApp(tk.Tk):
 
@@ -108,8 +110,8 @@ def putimage(label):
         label.configure(image=img)
         label.image=img
         return None
-    except expression as identifier:
-        return identifier
+    except:
+        print("no imagen que colocar")
 
 def get_roi():
     global path,img_adjust_label,pixlist,size
@@ -143,25 +145,60 @@ def saveimage(img,nombre,path):
     
     return None
 
-def applystyle(style):
+def applystyle():
     global initdir,sampledir,temp_img,img_apply_label
-    if (style == None):
-        pass #alert
-    shutil.rmtree(initdir)
-    shutil.rmtree(sampledir)
-    os.mkdir(initdir)
-    os.mkdir(sampledir)
-    saveimage(temp_img,"temporal",initdir)
-    os.system("python ./modules/cycleGAN/process_img.py")
+    estilo =styles_combo.get()
+    if (estilo == ''):
+        messagebox.showinfo("alerta", "debes seleccionar un estilo")
+    elif(estilo == 'cyberpunk'):
+        shutil.rmtree(initdir)
+        shutil.rmtree(sampledir)
+        os.mkdir(initdir)
+        os.mkdir(sampledir)
+        saveimage(temp_img,"temporal",initdir)
+        os.system("python ./modules/cycleGAN/process_img.py")
 
-    foto= Image.open(sampledir+"/B-num-0epoch-0.png")
-    foto.thumbnail((400,400))
-    foto = ImageTk.PhotoImage(foto)
-    img_apply_label.configure(image=foto)
-    img_apply_label.image=foto
+        foto= Image.open(sampledir+"/B-num-0epoch-0.png")
+        foto.thumbnail((400,400))
+        foto = ImageTk.PhotoImage(foto)
+        img_apply_label.configure(image=foto)
+        img_apply_label.image=foto
 
+    elif(estilo == 'pyxelart'):
+        shutil.rmtree(sampledir)
+        os.mkdir(sampledir)
+        img = np.array(temp_img)
+        foto = pixelArtModule(img)
+        foto = Image.fromarray(foto)
+        saveimage(foto,"pixelart",sampledir)
+        foto.thumbnail((400,400))
+        foto = ImageTk.PhotoImage(foto)
+        
+        img_apply_label.configure(image=foto)
+        img_apply_label.image=foto
 
     
+
+
+
+################# PYXELATE ################
+    
+
+
+def pixelArtModule(img):
+
+    height, width, _ = img.shape 
+    factor = 4
+    colors = 32
+    dither = True
+
+    p = Pyxelate(height // factor, width // factor, colors, dither)
+    pyxelate_Image = p.convert(img)
+
+    #resize image
+    pyxelate_Image = cv2.resize(pyxelate_Image,(width,height),interpolation = cv2.INTER_AREA)
+
+    return pyxelate_Image
 
 if __name__ == "__main__":
     #init
@@ -193,8 +230,8 @@ if __name__ == "__main__":
     #botones
 
     open_btn = Button(cursor,text='Abrir Imagen',command= lambda label =image_prev_label : getimage(label))#carga imagen
-    apply_btn = Button(cursor,text='>>',command=lambda style = "aaa":applystyle(style))#aplicar filtro, falta implementar
-    styles_combo= ttk.Combobox(cursor,state='readonly',values=['cyberpunk'])#seleccion de filtro, falta implementar
+    apply_btn = Button(cursor,text='>>',command=applystyle)#aplicar filtro, falta implementar
+    styles_combo= ttk.Combobox(cursor,state='readonly',values=['cyberpunk','pyxelart'])#seleccion de filtro, falta implementar
     save_btn = Button(cursor,text='Guardar Imagen')#guardar foto, falta implementar
 
     open_btn.pack(side="bottom")

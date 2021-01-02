@@ -14,6 +14,7 @@ transform_test = transforms.Compose([transforms.Resize(720),  # puedes cambiar e
 
 print(os.getcwd())
 image_path_test_x = './modules/cycleGAN/input_imgs/'
+#image_path_test_x = './input_imgs/'
 
 test_x = ImageFolder(image_path_test_x, transform_test)
 
@@ -27,6 +28,8 @@ if len(sys.argv) > 1:
     Style = sys.argv[1]+'/'
 
 dir_weights = './modules/cycleGAN/model_weights/' + Style
+#dir_weights = './model_weights/' + Style
+
 
 print(dir_weights)
 
