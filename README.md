@@ -4,7 +4,7 @@
 
 En la actualidad el mundo artıstico esta enfocado en las técnicas digitales a través de software como la suite de adobe que permiten a los artista digitales y disenadores gráficos realizar su trabajo de acuerdo a sus necesidades, pero a pesar de contar con dichas herramientas, estos se enfrentan a un problema recurrente: la generación de contenido diverso para sus plataformas en poco tiempo.
 
-Es por ́este motivo que se busca implementar un herramienta que ayude a los artistas digitales ala generación rápida de contenido en diversos estilos artísticos a partir de una imagen. Actualmenteeste problema ha sido abordado utilizando inteligencia artificial para la generación de imágenes con un nuevo estilo artístico como lo plantea el artículo A Neural Algorithm of Artistic Style, pero aún no se ha implementado una herramienta que baje esta solución a los usuarios.
+Es por éste motivo que se busca implementar un herramienta que ayude a los artistas digitales ala generación rápida de contenido en diversos estilos artísticos a partir de una imagen. Actualmenteeste problema ha sido abordado utilizando inteligencia artificial para la generación de imágenes con un nuevo estilo artístico como lo plantea el artículo A Neural Algorithm of Artistic Style, pero aún no se ha implementado una herramienta que baje esta solución a los usuarios.
 
 Por lo mencionado anteriormente se ha creado Cymon que es una herramienta de retoque fotográfico con la cual se puede realizar transferencias de estilo de las imágenes, CyberPunk o PixelArt segun el usuario lo desee de una manera simple.
 
@@ -21,4 +21,8 @@ Para una información más detallada de cómo instalar y requerimientos Cymon re
 
 ## Guía de uso rápido
 
-[Manual de uso](https://github.com/OGmenas/gui-pdi/wiki/Manual-de-Usuario)
+Para realizar una instancia de Cymon se debe ejecutar 
+
+```python main_example.py```
+
+Para una información más detallada de cómo usar Cymon ver el [Manual de uso](https://github.com/OGmenas/gui-pdi/wiki/Manual-de-Usuario)
