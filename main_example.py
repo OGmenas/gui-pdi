@@ -103,6 +103,7 @@ def getimage(label):
     img.thumbnail((400,400))
     img = ImageTk.PhotoImage(img)
     size = (img.width(),img.height())
+    print(size)
     label.configure(image=img)
     label.image=img
 
@@ -189,7 +190,7 @@ def saveimage(img,nombre,path):
     return None
 
 def applystyle():
-    global initdir,sampledir,temp_img,img_apply_label,rectimg, original
+    global initdir,sampledir,temp_img,img_apply_label,rectimg, original,size
     estilo =styles_combo.get()
     
 
@@ -200,21 +201,30 @@ def applystyle():
         shutil.rmtree(sampledir)
         os.mkdir(initdir)
         os.mkdir(sampledir)
+        try:
+            temp_img = Image.fromarray(temp_img)
+        except:
+            pass
         saveimage(temp_img,"temporal",initdir)
         os.system("python ./modules/cycleGAN/process_img.py")
 
         foto= Image.open(sampledir+"/B-num-0epoch-0.png")
-        foto = np.array(foto)
+       
         if(rectimg.any() != 0):
+            cv2.imshow('original',original)
+            foto = np.array(foto)
+            
+            foto = cv2.resize(foto,size,interpolation = cv2.INTER_AREA)
+            cv2.imshow('foto', foto)
             rows,cols,depth = original.shape
             for i in range(rows):
                 for j in range(cols):
                     for k in range(depth):
                         if foto[i,j, k] == 0:
-                            # print(original[i,j,k])
-                            foto[i,j,0] = original[i,j,0]
-                            foto[i,j,1] = original[i,j,1]
-                            foto[i,j,2] = original[i,j,2]
+                            print(foto[i,j,0],
+                            foto[i,j,1],
+                            foto[i,j,2])
+                            foto[i,j,k] = original[i,j,k]
 
         foto = Image.fromarray(foto)
         foto.thumbnail((400,400))
@@ -287,6 +297,7 @@ if __name__ == "__main__":
     size=0
     initdir='./modules/cycleGAN/input_imgs/1/'
     sampledir='./modules/cycleGAN/samples/'
+    cuadrado = np.zeros(1)
     #frames de fotos
 
 
