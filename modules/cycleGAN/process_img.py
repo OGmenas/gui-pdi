@@ -20,7 +20,7 @@ test_x = ImageFolder(image_path_test_x, transform_test)
 
 test_loader_x = DataLoader(dataset=test_x, batch_size=1, shuffle=False)
 
-model = cycle_gan(training=False, device='cuda')  # Si tienes gpu cambiar 'cpu' -> 'cuda'
+model = cycle_gan(training=False, device='cpu')  # Si tienes gpu cambiar 'cpu' -> 'cuda'
 
 Style = 'cyberpunk/'
 
